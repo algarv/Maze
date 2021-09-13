@@ -3,16 +3,16 @@ import random
 import time
 import numpy
 
-from maze_generator import *
+#from maze_generator import *
 
 pygame.init()
 
 
-##maze = [[2, 1, 0, 0, 0],
-##        [0, 0, 0, 1, 0],
-##        [0, 1, 1, 0, 0],
-##        [1, 0, 0, 0, 1],
-##        [0, 0, 1, 0, 3]]
+maze = [[3, 1, 0, 0, 0],
+        [0, 0, 0, 1, 0],
+        [0, 1, 1, 0, 0],
+        [1, 0, 0, 0, 1],
+        [0, 0, 1, 0, 4]]
 
 print(maze)
 size = numpy.size(maze,1)
@@ -104,5 +104,5 @@ while True:
             path.append((x,y))
             break
     print((x,y))
-    time.sleep(1)
+    time.sleep(.5)
 
