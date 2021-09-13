@@ -16,6 +16,7 @@ pygame.init()
 
 print(maze)
 size = numpy.size(maze,1)
+walls = []
 
 screen = pygame.display.set_mode([size*60,size*60])
 screen.fill((255,255,255))       
@@ -31,11 +32,6 @@ for i in range(0,size):
 print((x,y))
 
 while True:
-    if maze[x][y] == 1:
-        if i == 'x':
-            x = x - z
-        if i == 'y':
-            y = y - z
     for r in range(0,size):
         for c in range(0,size):
             if maze[r][c] == 0:
@@ -53,24 +49,39 @@ while True:
 
     if maze[x][y] == 4:
         break
-    
-    i = random.choice(['x','y'])
-    if i == 'x':
-        z = random.choice((-1,1))
-        x = x + z
-    if i == 'y':
-        z = random.choice((-1,1))
-        y = y + z
-        
-    if x < 0:
-        x = x + 1
-    if x == size:
-        x = x - 1
 
-    if y < 0:
-        y = x + 1
-    if y == size:
-        y = y - 1
-        
-    time.sleep(1)
+    a = x
+    b = y
+    while True:
+        i = random.choice(['x','y'])
+        if i == 'x':
+            z = random.choice((-1,1))
+            x = x + z
+        if i == 'y':
+            z = random.choice((-1,1))
+            y = y + z
+        if (x,y) in walls:
+            x = a
+            y = b
+            continue
+        elif x < 0:
+            x = a
+            continue
+        elif x == size:
+            x = a
+            continue
+        elif y < 0:
+            y = b
+            continue
+        elif y == size:
+            y = b
+            continue
+        elif maze[x][y] == 1:
+            walls.append((x,y))
+            x = a
+            y = b
+        else:
+            break
+
+    time.sleep(.5)
 
