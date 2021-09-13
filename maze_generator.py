@@ -12,9 +12,6 @@ for x in range(size):
         inner_list.append(1)
     maze_list.append(inner_list)
 
-#for x in range(size):
-#    print(maze_list[x])
-
 #Randomly choose a cell B and mark it as free.
 B = [random.randint(0,size-1), random.randint(0,size-1)]
 print(f"Cell B: {B}")
@@ -29,33 +26,24 @@ wall_list = [[B[0]+1, B[1]],
             [B[0]-1, B[1]],
             [B[0], B[1]-1]]
 
+
+wall_list_size = [0, 1, 2, 3]
+
+#Remove neighbors who are out of maze range
+print(f"Wall List: {wall_list}")
+for x in wall_list_size:
+    for y in range(2):
+        if wall_list[x][y] < 0 or wall_list[x][y] >= size:
+            wall_list.pop(x)
+            wall_list_size.pop()
 print(f"Adjusted Wall List: {wall_list}")
 
-cell_history = []
-
 #While the wall list is not empty:
-while wall_list:
-    #print(f"Full Wall List: {wall_list}")
-    wall_list_size = list(range(len(wall_list)))
+for x in range(10):
 
-    #Remove neighbors who are out of maze range
-    for x in wall_list_size:
-        for y in range(2):
-            if wall_list[x][y] < 0 or wall_list[x][y] >= size:
-                wall_list.pop(x)
-                wall_list_size.pop()
-    
-    for x in wall_list_size:
-        for y in cell_history:
-            if wall_list[x] == y:
-                wall_list.pop(x)
-    
     #   Randomly choose a wall C from the wall list
-    if len(wall_list) > 0:
-        C = wall_list[random.randint(0,len(wall_list)-1)]
-        print(f"Cell C: {C}")
-    else:
-        break
+    C = wall_list[random.randint(0,len(wall_list)-1)]
+    print(f"Cell C: {C}")
 
     #   The wall divides two cells, A and B.
 
@@ -68,7 +56,8 @@ while wall_list:
     elif B[1] == C[1] and B[0] < C[0]:
         A = [C[0]+1, B[1]]
 
-    if A[0] < 0 or A[0] > size-1 or A[1] < 0 or A[1] > size-1:
+    #trying to account for negative As
+    if A[0] < 0 or A[0] > size-1 or A[1] < 0 or A[1] > size-1: 
         A = C
 
     print(f"Cell A: {A}")
@@ -84,13 +73,9 @@ while wall_list:
 
     #   Make C free
     maze_list[C[0]][C[1]] = 0
-    #   Add coordinate to history
-    cell_history.append(C)
 
     #   Make D free
     maze_list[D[0]][D[1]] = 0
-    #   Add coordinate to history
-    cell_history.append(D)
 
     for x in range(size):
         print(maze_list[x])
@@ -99,7 +84,7 @@ while wall_list:
     B = D
 
     #   Add the walls of D to the wall list
-    wall_list_size = [0,1,2,3]
+    wall_list_size = [0,1,2]
     wall_list = [[D[0]+1, D[1]],
                 [D[0], D[1]+1],
                 [D[0]-1, D[1]],
@@ -109,9 +94,6 @@ while wall_list:
     for x in wall_list_size:
         if wall_list[x][0] == C[0] and wall_list[x][1] == C[1]:
             wall_list.pop(x)
-            wall_list_size.pop()
-
-    #print(f"D wall list minus C: {wall_list}")
 
 
 
