@@ -2,6 +2,9 @@ import pygame
 import random
 import time
 
+#import maze_generator
+from maze_generator import *
+
 pygame.init()
 
 size = 5
@@ -9,12 +12,13 @@ size = 5
 screen = pygame.display.set_mode([size*60,size*60])
 screen.fill((255,255,255))
 
-maze = [[2, 1, 0, 0, 0],
-        [0, 0, 0, 1, 0],
-        [0, 1, 1, 0, 0],
-        [1, 0, 0, 0, 1],
-        [0, 0, 1, 0, 3]]
+##maze = [[2, 1, 0, 0, 0],
+##        [0, 0, 0, 1, 0],
+##        [0, 1, 1, 0, 0],
+##        [1, 0, 0, 0, 1],
+##        [0, 0, 1, 0, 3]]
 
+print(maze)
 
 for r in range(0,size):
     for c in range(0,size):
