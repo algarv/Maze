@@ -1,40 +1,51 @@
 from maze1 import maze
 import random
 
-solution = [[2, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 3]]
-
-start = maze[0][0]
-finish = maze[4][4]
 x = 0
 y = 0
 size = 5
+solution = [[0] * size for i in range(size)]
 
-while solution[x][y] != 3:
+while True:
     i = random.choice(("x", "y"))
     print(i) # for debugging
 
     if i == "x":
-        x = x + random.choice((-1,1))
+        z = random.choice((-1,1))
+        x = x + z
         print(x) # for debugging
-        if x <= 0:
-            x = 0
-            solution[x][y] = 0
-        elif x >= size:
-            x = x - 1
-        elif x == 1:
-            solution[x][y] = 1
+        if x < 0:
+            x = x - z
+            continue
+        elif x > size - 1:
+            x = x - z
+            continue
+        if maze[y][x] == 0:
+            solution[y][x] = 0
+        elif maze[y][x] == 1:
+            solution[y][x] = 1
+            x = x - z
+        print(solution)  # for debugging
+        print(x)
+
         
     if i == "y":
-        y = y + random.choice((-1,1))
+        z = random.choice((-1,1))
+        y = y + z
         print(y)  # for debugging
         if y < 0:
-            y = 0
-            solution[x][y] = 0
-        elif y >= size:
-            y = y - 1
-        elif y == 1:
-            solution[x][y] = 1
+            y = y - z
+            continue
+        elif y > size - 1:
+            y = y - z
+            continue
+        if maze[y][x] == 0:
+            solution[y][x] = 0
+        elif maze[y][x] == 1:
+            solution[y][x] = 1
+            y = y - z         
+        print(solution)  # for debugging
+        print(y)
+
+    # if solution[size][size] == 3:
+       # break
