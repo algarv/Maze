@@ -27,10 +27,15 @@ for i in range(0,size):
         break
     except:
         continue
+    
 print((x,y))
-#x = 0
-#y = 0
+
 while True:
+    if maze[x][y] == 1:
+        if i == 'x':
+            x = x - z
+        if i == 'y':
+            y = y - z
     for r in range(0,size):
         for c in range(0,size):
             if maze[r][c] == 0:
@@ -51,9 +56,11 @@ while True:
     
     i = random.choice(['x','y'])
     if i == 'x':
-        x = x + random.choice((-1,1))
+        z = random.choice((-1,1))
+        x = x + z
     if i == 'y':
-        y = y + random.choice((-1,1))
+        z = random.choice((-1,1))
+        y = y + z
         
     if x < 0:
         x = x + 1
