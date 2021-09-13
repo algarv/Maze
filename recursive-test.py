@@ -4,7 +4,7 @@ import random
 x = 0
 y = 0
 size = 5
-solution = [[0] * size for i in range(size)]
+solution = [[0] * size for j in range(size)]
 
 while True:
     i = random.choice(("x", "y"))
@@ -21,9 +21,9 @@ while True:
             x = x - z
             continue
         if maze[y][x] == 0:
-            solution[y][x] = 0
+            solution[y][x] = maze[y][x]
         elif maze[y][x] == 1:
-            solution[y][x] = 1
+            solution[y][x] = maze[y][x]
             x = x - z
         print(solution)  # for debugging
         print(x)
@@ -40,12 +40,16 @@ while True:
             y = y - z
             continue
         if maze[y][x] == 0:
-            solution[y][x] = 0
+            solution[y][x] = maze[y][x]
         elif maze[y][x] == 1:
-            solution[y][x] = 1
+            solution[y][x] = maze[y][x]
             y = y - z         
         print(solution)  # for debugging
         print(y)
 
-    # if solution[size][size] == 3:
-       # break
+    if maze[y][x] == 3:
+            solution[y][x] = maze[y][x]
+            print(solution)
+            break
+
+
