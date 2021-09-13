@@ -42,8 +42,22 @@ print(f"Adjusted Wall List: {wall_list}")
 for x in range(10):
 
     #   Randomly choose a wall C from the wall list
-    C = wall_list[random.randint(0,len(wall_list)-1)]
+    C = random.choice(wall_list)
     print(f"Cell C: {C}")
+
+    if C[0] == 0 or C[1] == 0 or C[0] == size-1 or C[1] == size-1: #C on edge of maze (could be trouble)
+        if B[0] == 0 or B[1] == 0 or B[0] == size-1 or B[1] == size-1: #B on edge of maze (this is okay)
+            if B[0] == C[0] and B[1] > C[1]:
+                A = [B[0], C[1]-1]
+            elif B[0] == C[0] and B[1] < C[1]:
+                A = [B[0], C[1]+1]
+            elif B[1] == C[1] and B[0] > C[0]:
+                A = [C[0]-1, B[1]]
+            elif B[1] == C[1] and B[0] < C[0]:
+                A = [C[0]+1, B[1]]
+        else: #C on edge of maze, but B is not (means A will be off maze!!!)
+
+
 
     #   The wall divides two cells, A and B.
 
