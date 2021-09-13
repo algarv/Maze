@@ -17,6 +17,7 @@ pygame.init()
 print(maze)
 size = numpy.size(maze,1)
 walls = []
+path = []
 
 screen = pygame.display.set_mode([size*60,size*60])
 screen.fill((255,255,255))       
@@ -65,22 +66,33 @@ while True:
             y = b
             continue
         elif x < 0:
+            walls.append((x,y))
             x = a
             continue
         elif x == size:
+            walls.append((x,y))
             x = a
             continue
         elif y < 0:
+            walls.append((x,y))
             y = b
             continue
         elif y == size:
+            walls.append((x,y))
             y = b
             continue
         elif maze[x][y] == 1:
             walls.append((x,y))
             x = a
             y = b
+        if (x,y) in path:
+            if ((x+1,y) and (x-1,y) and (x,y+1) and (x,y-1)) in walls:
+                walls.append((a,b))
+                break
+            else:
+                continue
         else:
+            path.append((x,y))
             break
 
     time.sleep(.5)
