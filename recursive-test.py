@@ -14,26 +14,27 @@ y = 0
 size = 5
 
 while solution[x][y] != 3:
-    i = random.choice("x", "y'")
+    i = random.choice(("x", "y"))
+    print(i) # for debugging
 
     if i == "x":
         x = x + random.choice((-1,1))
-    elif i == "y":
+        print(x) # for debugging
+        if x <= 0:
+            x = 0
+            solution[x][y] = 0
+        elif x >= size:
+            x = x - 1
+        elif x == 1:
+            solution[x][y] = 1
+        
+    if i == "y":
         y = y + random.choice((-1,1))
-
-    if x < 0:
-        x = 0
-
-    if y < 0:
-        y = 0
-    
-    
-
-    '''if x == size:
-        x = x - 1
-
-    if y == size:
-        y = x - 1'''
-
-    if maze[x][y] == 3:
-        break
+        print(y)  # for debugging
+        if y < 0:
+            y = 0
+            solution[x][y] = 0
+        elif y >= size:
+            y = y - 1
+        elif y == 1:
+            solution[x][y] = 1
