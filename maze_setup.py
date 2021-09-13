@@ -33,7 +33,7 @@ for r in range(0,size):
 
 x = 0
 y = 0
-while maze[x][y] != 3:
+while True:
     for r in range(0,size):
         for c in range(0,size):
             if maze[r][c] == 0:
@@ -46,14 +46,27 @@ while maze[x][y] != 3:
                 color = (255,0,0)
             pygame.draw.rect(screen, color, pygame.Rect(c*60,r*60,60,60))
             pygame.display.flip()
-    #time.sleep(1)
     pygame.draw.rect(screen,(0,0,255),pygame.Rect(x*60,y*60,60,60))
     pygame.display.flip()
-    x = x + random.randint(-1,1)
+
+    if maze[x][y] == 3:
+        break
+    
+    i = random.choice(['x','y'])
+    if i == 'x':
+        x = x + random.choice((-1,1))
+    if i == 'y':
+        y = y + random.choice((-1,1))
+        
     if x < 0:
         x = 0
     if x == size:
         x = x - 1
 
-    
+    if y < 0:
+        y = 0
+    if y == size:
+        y = x - 1
+        
+    #time.sleep(1)
 
