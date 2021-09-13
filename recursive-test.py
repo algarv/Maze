@@ -11,17 +11,24 @@ start = maze[0][0]
 finish = maze[4][4]
 x = 0
 y = 0
+size = 5
 
 while solution[x][y] != 3:
-    x = x + 1 
-    if maze[x][y] == 0:
-        solution[x][y] = 0
-        break
-    elif maze[x][y] == 1:
-        solution[x][y] = 1
-        break
+    i = random.choice("x", "y'")
+    if i == "x":
+        x = x + random.choice((-1,1))
+    if i == "y":
+        y = y + random.choice((-1,1))
 
-    if solution[x][y] == 0:
-        x = x + 1
-        
+    if x < 0:
+        x = 0
+    if x == size:
+        x = x - 1
 
+    if y < 0:
+        y = 0
+    if y == size:
+        y = x - 1
+
+    if maze[x][y] == 3:
+        break
