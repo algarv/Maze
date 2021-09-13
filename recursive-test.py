@@ -15,20 +15,25 @@ size = 5
 
 while solution[x][y] != 3:
     i = random.choice("x", "y'")
+
     if i == "x":
         x = x + random.choice((-1,1))
-    if i == "y":
+    elif i == "y":
         y = y + random.choice((-1,1))
 
     if x < 0:
         x = 0
-    if x == size:
-        x = x - 1
 
     if y < 0:
         y = 0
+    
+    
+
+    '''if x == size:
+        x = x - 1
+
     if y == size:
-        y = x - 1
+        y = x - 1'''
 
     if maze[x][y] == 3:
         break
