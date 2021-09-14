@@ -52,6 +52,7 @@ print(f"Adjusted Wall List: {wall_list}")
 
 
 #While the wall list is not empty:
+#while wall_list:
 for x in range(size*3):
 
     #   Randomly choose a wall C from the wall list
@@ -63,9 +64,18 @@ for x in range(size*3):
             print()
         else: #C on edge of maze, but B is not (means A will be off maze!!!)
             #wall_list[C[0]][C[1]] = 0
-            for x in wall_list_size:
-                if wall_list[x][0] == C[0] and wall_list[x][1] == C[1]:
-                    wall_list.pop(x)
+            #for x in wall_list_size:
+            #    if wall_list[x][0] == C[0] and wall_list[x][1] == C[1]:
+            #        wall_list.pop(x)
+            
+            for coordinates in wall_list:
+                if coordinates == C:
+                    wall_list.remove(coordinates)
+                    
+            for coordinates in wall_list:
+                if coordinates == C:
+                    wall_list.remove(coordinates)
+            
             C = random.choice(wall_list)
             print(f"Try Again Cell C: {C}")
 
@@ -109,20 +119,19 @@ for x in range(size*3):
     #   Make D the new B
     B = D
 
-    #   Add the walls of D to the wall list
+    #Add the walls of D to the wall list
     #wall_list_size = [0,1,2]
     wall_list = [[D[0]+1, D[1]],
                 [D[0], D[1]+1],
                 [D[0]-1, D[1]],
                 [D[0], D[1]-1]]
     
-    for x in wall_list_size:
-        for y in range(2):
-            if wall_list[x][y] < 0 or wall_list[x][y] >= size:
-                wall_list.pop(x)
-                wall_list_size.pop()
+    #for x in wall_list_size:
+    #    for y in range(2):
+    #        if wall_list[x][y] < 0 or wall_list[x][y] >= size:
+    #            wall_list.pop(x)
+    #            wall_list_size.pop()
 
-<<<<<<< HEAD
     ##suggestion##
     for coordinates in wall_list:
         if coordinates[0] < 0 or coordinates[0]>size-1 or coordinates[1]<0 or coordinates[1]>size-1:
@@ -144,26 +153,11 @@ for x in range(size*3):
     #    if wall_list[x][0] == C[0] and wall_list[x][1] == C[1]:
     #        wall_list.pop(x)
 
-maze_list[C[0]][C[1]]=3
+maze_list[D[0]][D[1]]=3
 maze = maze_list
-##maze = [[1, 3, 1, 0],
-##        [1, 0, 1, 0],
-##        [0, 0, 0, 0],
-##        [0, 1, 1, 4]]
-=======
-    #   Remove C from the wall list
-    for x in wall_list_size:
-        if wall_list[x][0] == C[0] and wall_list[x][1] == C[1]:
-            wall_list.pop(x)
 
-    print(f"End of Loop wall_list: {wall_list}")
+print(f"End of Loop wall_list: {wall_list}")
 
 print("Maze Generated!")
-
-maze = [[1, 3, 1, 0],
-        [1, 0, 1, 0],
-        [0, 0, 0, 0],
-        [0, 1, 1, 4]]
->>>>>>> refs/remotes/origin/master
 
 
