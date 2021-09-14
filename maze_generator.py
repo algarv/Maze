@@ -12,74 +12,62 @@ for x in range(size):
         inner_list.append(1)
     maze_list.append(inner_list)
 
+
 #Randomly choose a cell B and mark it as free.
 B = [random.randint(0,size-1), random.randint(0,size-1)]
 print(f"Cell B: {B}")
 maze_list[B[0]][B[1]] = 2
 
+start = B
+
 for x in range(size):
     print(maze_list[x])
 
 #Add that cell's neighbors to the wall list.
-wall_list = [[B[0]+1, B[1]],
-            [B[0], B[1]+1],
-            [B[0]-1, B[1]],
-            [B[0], B[1]-1]]
+    
+wall_list = []
 
+for coordinates in [[B[0]+1, B[1]],[B[0], B[1]+1],[B[0]-1, B[1]],[B[0], B[1]-1]]:
+    if coordinates[0] < 0 or coordinates[0] >= size or coordinates[1] <0 or coordinates[1] >= size:
+        continue
+    else:
+        wall_list.append(coordinates)
 
-wall_list_size = [0, 1, 2, 3]
-
-###Remove neighbors who are out of maze range
-##print(f"Wall List: {wall_list}")
-##for x in wall_list_size:
-##    for y in range(2):
-##        if wall_list[x][y] < 0 or wall_list[x][y] >= size:
-##            wall_list.pop(x)
-##            wall_list_size.pop()
-##print(f"Adjusted Wall List: {wall_list}")
-
-##suggestion##
-for coordinates in wall_list:
-    if coordinates[0] < 0 or coordinates[0]>size-1 or coordinates[1]<0 or coordinates[1]>size-1:
-        wall_list.remove(coordinates)
-
-for coordinates in wall_list:
-    if coordinates[0] < 0 or coordinates[0]>size-1 or coordinates[1]<0 or coordinates[1]>size-1:
-        wall_list.remove(coordinates)
-
-print(f"Adjusted Wall List: {wall_list}")
-##############
+print(f"Wall List: {wall_list}")
 
 
 #While the wall list is not empty:
-#while wall_list:
-for x in range(size*3):
-
+while len(wall_list)>1:
+    
+#for x in range(size*3):
+    print(B)
     #   Randomly choose a wall C from the wall list
     C = random.choice(wall_list)
     print(f"Cell C: {C}")
 
-    if C[0] == 0 or C[1] == 0 or C[0] == size-1 or C[1] == size-1: #C on edge of maze (could be trouble)
-        if B[0] == 0 or B[1] == 0 or B[0] == size-1 or B[1] == size-1: #B on edge of maze (this is okay)
-            print()
-        else: #C on edge of maze, but B is not (means A will be off maze!!!)
-            #wall_list[C[0]][C[1]] = 0
-            #for x in wall_list_size:
-            #    if wall_list[x][0] == C[0] and wall_list[x][1] == C[1]:
-            #        wall_list.pop(x)
-            
-            for coordinates in wall_list:
-                if coordinates == C:
-                    wall_list.remove(coordinates)
-                    
-            for coordinates in wall_list:
-                if coordinates == C:
-                    wall_list.remove(coordinates)
-            
-            C = random.choice(wall_list)
-            print(f"Try Again Cell C: {C}")
+    while True:
+        if C[0] == 0 or C[1] == 0 or C[0] == size-1 or C[1] == size-1: #C on edge of maze (could be trouble)
+            if B[0] == 0 or B[1] == 0 or B[0] == size-1 or B[1] == size-1: #B on edge of maze (this is okay)
+                if (C[0]==0 and C[1]==0) or (C[0] == 0 and C[1] == size-1) or (C[0]==size-1 and C[1]==0) or (C[0]==size-1 and C[1]==size-1):
+                    print('Corner!')
+                    while C in wall_list: 
+                        for coordinates in wall_list:
+                            if coordinates == C:
+                                wall_list.remove(coordinates) 
+                    C = random.choice(wall_list)
+                else:
+                    break
+            else: #C on edge of maze, but B is not (means A will be off maze!!!)
+                while C in wall_list: 
+                    for coordinates in wall_list:
+                        if coordinates == C:
+                            wall_list.remove(coordinates) 
+                C = random.choice(wall_list)
+        else:
+            break
+        print(f"Try Again Cell C: {C}")
 
-    #   The wall divides two cells, A and B.
+    #The wall divides two cells, A and B.
 
     if B[0] == C[0] and B[1] > C[1]:
         A = [B[0], C[1]-1]
@@ -91,69 +79,53 @@ for x in range(size*3):
         A = [C[0]+1, B[1]]
 
     #trying to account for negative As
-    if A[0] < 0 or A[0] > size-1 or A[1] < 0 or A[1] > size-1: 
-        A = C
+    #if A[0] < 0 or A[0] > size-1 or A[1] < 0 or A[1] > size-1: 
+    #    A = C
 
     print(f"Cell A: {A}")
 
     #   If either A or B is a wall
     #   Let D be whichever of A and B that is the wall
-    if maze_list[A[0]][A[1]] == 1:
-        D = A
-    elif maze_list[B[0]][B[1]] == 1:
-        D = B
-    else:
-        break
+##    if maze_list[A[0]][A[1]] == 1:
+##        D = A
+##    elif maze_list[B[0]][B[1]] == 1:
+##        D = B
+##    else:
+##        break
 
-    print(f"Cell D: {D}")
+    #print(f"Cell D: {D}")
 
     #   Make C free
     maze_list[C[0]][C[1]] = 0
 
     #   Make D free
-    maze_list[D[0]][D[1]] = 0
+    maze_list[A[0]][A[1]] = 0
 
     for x in range(size):
         print(maze_list[x])
 
-    #   Make D the new B
-    B = D
+    #   Make A the new B
+    B = A
 
-    #Add the walls of D to the wall list
-    #wall_list_size = [0,1,2]
-    wall_list = [[D[0]+1, D[1]],
-                [D[0], D[1]+1],
-                [D[0]-1, D[1]],
-                [D[0], D[1]-1]]
-    
-    #for x in wall_list_size:
-    #    for y in range(2):
-    #        if wall_list[x][y] < 0 or wall_list[x][y] >= size:
-    #            wall_list.pop(x)
-    #            wall_list_size.pop()
+    for coordinates in [[B[0]+1, B[1]],[B[0], B[1]+1],[B[0]-1, B[1]],[B[0], B[1]-1]]:
+        if coordinates in wall_list:
+            continue
+        elif coordinates[0] < 0 or coordinates[0] >= size or coordinates[1] <0 or coordinates[1] >= size:
+            continue
+        else:
+            wall_list.append(coordinates)
 
-    ##suggestion##
-    for coordinates in wall_list:
-        if coordinates[0] < 0 or coordinates[0]>size-1 or coordinates[1]<0 or coordinates[1]>size-1:
-            wall_list.remove(coordinates)
 
-    for coordinates in wall_list:
-        if coordinates[0] < 0 or coordinates[0]>size-1 or coordinates[1]<0 or coordinates[1]>size-1:
-            wall_list.remove(coordinates)
-
-    for coordinates in wall_list:
-        if coordinates == C:
-            wall_list.remove(coordinates)
+    while C in wall_list: 
+        for coordinates in wall_list:
+            if coordinates == C:
+                wall_list.remove(coordinates) 
     
     print(f"Adjusted Wall List: {wall_list}")
-    ##############
 
-    #Remove C from the wall list
-    #for x in wall_list_size:
-    #    if wall_list[x][0] == C[0] and wall_list[x][1] == C[1]:
-    #        wall_list.pop(x)
 
-maze_list[D[0]][D[1]]=3
+maze_list[A[0]][A[1]]=3
+maze_list[start[0]][start[1]]=2
 maze = maze_list
 
 print(f"End of Loop wall_list: {wall_list}")
