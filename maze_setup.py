@@ -3,16 +3,16 @@ import random
 import time
 import numpy
 
-#from maze_generator import *
+from maze_generator import *
 
 pygame.init()
 
-
-maze = [[3, 1, 0, 0, 0],
-        [0, 0, 0, 1, 0],
-        [0, 1, 1, 0, 0],
-        [1, 0, 0, 0, 1],
-        [0, 0, 1, 0, 4]]
+##
+##maze = [[3, 1, 0, 0, 0],
+##        [0, 0, 0, 1, 0],
+##        [0, 1, 1, 0, 0],
+##        [1, 0, 0, 0, 1],
+##        [0, 0, 1, 0, 4]]
 
 print(maze)
 size = numpy.size(maze,1)
@@ -24,7 +24,7 @@ screen.fill((255,255,255))
 
 for i in range(0,size):
     try: 
-        y = maze[i].index(3)
+        y = maze[i].index(2)
         x = i
         break
     except:
@@ -40,16 +40,16 @@ while True:
                 color = (255,255,255)
             elif maze[r][c] == 1:
                 color = (0,0,0)
-            elif maze[r][c] == 3:
+            elif maze[r][c] == 2:
                 color = (0,255,0)
-            elif maze[r][c] == 4:
+            elif maze[r][c] == 3:
                 color = (255,0,0)
             pygame.draw.rect(screen, color, pygame.Rect(c*60,r*60,60,60))
             pygame.display.flip()
     pygame.draw.rect(screen,(0,0,255),pygame.Rect(y*60,x*60,60,60))
     pygame.display.flip()
 
-    if maze[x][y] == 4:
+    if maze[x][y] == 3:
         break
 
     a = x
