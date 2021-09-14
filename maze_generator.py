@@ -47,17 +47,14 @@ for x in range(10):
 
     if C[0] == 0 or C[1] == 0 or C[0] == size-1 or C[1] == size-1: #C on edge of maze (could be trouble)
         if B[0] == 0 or B[1] == 0 or B[0] == size-1 or B[1] == size-1: #B on edge of maze (this is okay)
-            if B[0] == C[0] and B[1] > C[1]:
-                A = [B[0], C[1]-1]
-            elif B[0] == C[0] and B[1] < C[1]:
-                A = [B[0], C[1]+1]
-            elif B[1] == C[1] and B[0] > C[0]:
-                A = [C[0]-1, B[1]]
-            elif B[1] == C[1] and B[0] < C[0]:
-                A = [C[0]+1, B[1]]
+            print()
         else: #C on edge of maze, but B is not (means A will be off maze!!!)
-
-
+            #wall_list[C[0]][C[1]] = 0
+            for x in wall_list_size:
+                if wall_list[x][0] == C[0] and wall_list[x][1] == C[1]:
+                    wall_list.pop(x)
+            C = random.choice(wall_list)
+            print(f"Try Again Cell C: {C}")
 
     #   The wall divides two cells, A and B.
 
@@ -82,6 +79,8 @@ for x in range(10):
         D = A
     elif maze_list[B[0]][B[1]] == 1:
         D = B
+    else:
+        break
 
     print(f"Cell D: {D}")
 
@@ -103,13 +102,21 @@ for x in range(10):
                 [D[0], D[1]+1],
                 [D[0]-1, D[1]],
                 [D[0], D[1]-1]]
+    
+    for x in wall_list_size:
+        for y in range(2):
+            if wall_list[x][y] < 0 or wall_list[x][y] >= size:
+                wall_list.pop(x)
+                wall_list_size.pop()
 
     #   Remove C from the wall list
     for x in wall_list_size:
         if wall_list[x][0] == C[0] and wall_list[x][1] == C[1]:
             wall_list.pop(x)
 
+    print(f"End of Loop wall_list: {wall_list}")
 
+print("Maze Generated!")
 
 maze = [[1, 3, 1, 0],
         [1, 0, 1, 0],
