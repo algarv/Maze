@@ -2,6 +2,8 @@
 
 This package generates a maze then solves it with recursive back tracking.
 
+![Maze Gif](maze.gif)
+
 <h5> Maze Generation: </h5>
 
 The maze generation function randomly selects a start and end point and creates an array of wall indexes and path indexes, with at least one chain of open 
