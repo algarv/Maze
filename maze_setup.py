@@ -7,7 +7,7 @@ from maze_generator import *
 
 pygame.init()
 
-##
+
 ##maze = [[3, 1, 0, 0, 0],
 ##        [0, 0, 0, 1, 0],
 ##        [0, 1, 1, 0, 0],
@@ -22,6 +22,8 @@ path = []
 screen = pygame.display.set_mode([size*60,size*60])
 screen.fill((255,255,255))       
 
+time.sleep(10)
+
 for i in range(0,size):
     try: 
         y = maze[i].index(2)
@@ -31,7 +33,7 @@ for i in range(0,size):
         continue
     
 print((x,y))
-walls.append((x,y))
+path.append((x,y))
 
 while True:
     for r in range(0,size):

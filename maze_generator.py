@@ -37,9 +37,9 @@ print(f"Wall List: {wall_list}")
 
 
 #While the wall list is not empty:
-while len(wall_list)>1:
+#while len(wall_list)>1:
     
-#for x in range(size*3):
+for x in range(size*3):
     print(B)
     #   Randomly choose a wall C from the wall list
     C = random.choice(wall_list)
